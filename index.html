@@ -4,9 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=1440">
   <title>PigeonM — Business WiFi</title>
+  <script>
+    // Enable entrance animations unless the user prefers reduced motion.
+    // Failsafe: if main.js never starts, show the static page.
+    (function (d) {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      d.classList.add('anim');
+      setTimeout(function () { if (!d.classList.contains('anim-ready')) d.classList.remove('anim'); }, 4000);
+    })(document.documentElement);
+  </script>
   <link rel="preload" href="assets/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=c8af619">
+  <link rel="stylesheet" href="css/styles.css?v=anim1">
 </head>
 <body>
 <div class="page">
@@ -14,8 +23,8 @@
   <!-- ============ 1. HERO ============ -->
   <section class="hero" aria-label="Hero">
     <div class="hero__bg" aria-hidden="true">
-      <img src="assets/images/hero-bg-1.png" alt="">
-      <img src="assets/images/hero-bg-2.png" alt="">
+      <img class="hero__frame" src="assets/images/hero-bg-2.png" alt="">
+      <img class="hero__streaks" src="assets/images/hero-bg-1.png" alt="">
     </div>
 
     <!-- decorative grid lines -->
@@ -55,10 +64,10 @@
     <div class="hero__content">
       <div class="hero__inner">
         <span class="hero__highlight" aria-hidden="true"></span>
-        <h1 class="hero__title">Business WiFi that covers every corn<span>er of your operation</span></h1>
-        <img class="vline" src="assets/decor/line-cursor-65.svg" alt="" style="left:311px;top:73px;width:65px" aria-hidden="true">
-        <p class="hero__lead">From offices and clinics to fleets, vessels and aircraft. We design, install and manage your network, sized to your space and fully supported.</p>
-        <a class="btn-white btn-white--lg t-btn-16m" href="#">Get started</a>
+        <h1 class="hero__title">Business WiFi that covers every corn<span class="ghost">er of your operation</span></h1>
+        <img class="vline hero__caret" src="assets/decor/line-cursor-65.svg" alt="" style="left:311px;top:73px;width:65px" aria-hidden="true">
+        <p class="hero__lead" data-reveal>From offices and clinics to fleets, vessels and aircraft. We design, install and manage your network, sized to your space and fully supported.</p>
+        <a class="btn-white btn-white--lg t-btn-16m" href="#" data-rise>Get started</a>
       </div>
     </div>
 
@@ -107,7 +116,7 @@
   <section class="advantages" aria-label="Advantages">
     <div class="advantages__row">
       <article class="advantage">
-        <div class="dot-icon" aria-hidden="true">
+        <div class="dot-icon" aria-hidden="true" data-dots>
           <i style="left:3.811px;top:20.325px;width:5.081px;height:5.081px"></i>
           <i style="left:4.446px;top:27.946px;width:3.811px;height:3.811px"></i>
           <i style="left:5.081px;top:34.297px;width:2.541px;height:2.541px"></i>
@@ -138,12 +147,12 @@
           <i style="left:43.824px;top:39.379px;width:1.27px;height:1.27px"></i>
         </div>
         <div class="advantage__text">
-          <h3 class="t-h20">Sized to your business</h3>
-          <p class="t-body-14">Planned by floor area, rooms and access points</p>
+          <h3 class="t-h20" data-reveal>Sized to your business</h3>
+          <p class="t-body-14" data-reveal>Planned by floor area, rooms and access points</p>
         </div>
       </article>
       <article class="advantage">
-        <div class="dot-icon" aria-hidden="true">
+        <div class="dot-icon" aria-hidden="true" data-dots>
           <i style="left:29.216px;top:17.784px;width:3.811px;height:3.811px"></i>
           <i style="left:29.216px;top:17.784px;width:3.811px;height:3.811px"></i>
           <i style="left:29.216px;top:29.216px;width:3.811px;height:3.811px"></i>
@@ -165,12 +174,12 @@
           <i style="left:43.189px;top:24.77px;width:1.27px;height:1.27px"></i>
         </div>
         <div class="advantage__text">
-          <h3 class="t-h20">Online in 150 countries</h3>
-          <p class="t-body-14">Devices connect automatically, no passwords</p>
+          <h3 class="t-h20" data-reveal>Online in 150 countries</h3>
+          <p class="t-body-14" data-reveal>Devices connect automatically, no passwords</p>
         </div>
       </article>
       <article class="advantage">
-        <div class="dot-icon" aria-hidden="true">
+        <div class="dot-icon" aria-hidden="true" data-dots>
           <i style="left:5.081px;top:12.703px;width:3.811px;height:3.811px"></i>
           <i style="left:5.081px;top:20.324px;width:3.811px;height:3.811px"></i>
           <i style="left:5.081px;top:27.946px;width:3.811px;height:3.811px"></i>
@@ -201,8 +210,8 @@
           <i style="left:29.201px;top:40.648px;width:1.3px;height:1.3px"></i>
         </div>
         <div class="advantage__text">
-          <h3 class="t-h20">Uptime you can verify</h3>
-          <p class="t-body-14">Key network events recorded on Solana</p>
+          <h3 class="t-h20" data-reveal>Uptime you can verify</h3>
+          <p class="t-body-14" data-reveal>Key network events recorded on Solana</p>
         </div>
       </article>
     </div>
@@ -217,42 +226,50 @@
 
     <article class="segment">
       <div class="segment__text">
-        <h3 class="t-h24">Fixed site</h3>
-        <p class="t-body-14">Connectivity for business</p>
+        <h3 class="t-h24" data-reveal>Fixed site</h3>
+        <p class="t-body-14" data-reveal>Connectivity for business</p>
       </div>
-      <div class="segment__media" style="height:230px">
-        <img class="segment__noise" src="assets/images/card-noise.png" alt="">
-        <div class="segment__art"><img src="assets/images/segment-fixed-site.png" alt="Office building" style="left:0;top:14.4%;width:100%;height:104.67%"></div>
-      </div>
-    </article>
-    <article class="segment">
-      <div class="segment__text">
-        <h3 class="t-h24">Land mobility</h3>
-        <p class="t-body-14">In-motion connectivity on land</p>
-      </div>
-      <div class="segment__media" style="height:180px">
-        <img class="segment__noise" src="assets/images/card-noise.png" alt="">
-        <div class="segment__art"><img src="assets/images/segment-land-mobility.png" alt="Mountains" style="left:-43.17%;top:-14.17%;width:158.05%;height:211.39%"></div>
+      <div class="segment__media" style="--h:230px">
+        <div class="segment__frame">
+          <img class="segment__noise" src="assets/images/card-noise.png" alt="">
+          <div class="segment__art"><img src="assets/images/segment-fixed-site.png" alt="Office building" style="left:0;top:14.4%;width:100%;height:104.67%"></div>
+        </div>
       </div>
     </article>
     <article class="segment">
       <div class="segment__text">
-        <h3 class="t-h24">Maritime</h3>
-        <p class="t-body-14">Connectivity on the water</p>
+        <h3 class="t-h24" data-reveal>Land mobility</h3>
+        <p class="t-body-14" data-reveal>In-motion connectivity on land</p>
       </div>
-      <div class="segment__media" style="height:260px">
-        <img class="segment__noise" src="assets/images/card-noise.png" alt="">
-        <div class="segment__art"><img src="assets/images/segment-maritime.png" alt="Yacht" style="inset:0;width:100%;height:100%;object-position:bottom"></div>
+      <div class="segment__media" style="--h:180px">
+        <div class="segment__frame">
+          <img class="segment__noise" src="assets/images/card-noise.png" alt="">
+          <div class="segment__art"><img src="assets/images/segment-land-mobility.png" alt="Mountains" style="left:-43.17%;top:-14.17%;width:158.05%;height:211.39%"></div>
+        </div>
       </div>
     </article>
     <article class="segment">
       <div class="segment__text">
-        <h3 class="t-h24">Aviation</h3>
-        <p class="t-body-14">Connectivity while in the air</p>
+        <h3 class="t-h24" data-reveal>Maritime</h3>
+        <p class="t-body-14" data-reveal>Connectivity on the water</p>
       </div>
-      <div class="segment__media" style="height:360px">
-        <img class="segment__noise" src="assets/images/card-noise.png" alt="">
-        <div class="segment__art"><img src="assets/images/segment-aviation.png" alt="Airplane" style="left:-95.64%;top:4.67%;width:190.59%;height:90.66%"></div>
+      <div class="segment__media" style="--h:260px">
+        <div class="segment__frame">
+          <img class="segment__noise" src="assets/images/card-noise.png" alt="">
+          <div class="segment__art"><img src="assets/images/segment-maritime.png" alt="Yacht" style="inset:0;width:100%;height:100%;object-position:bottom"></div>
+        </div>
+      </div>
+    </article>
+    <article class="segment">
+      <div class="segment__text">
+        <h3 class="t-h24" data-reveal>Aviation</h3>
+        <p class="t-body-14" data-reveal>Connectivity while in the air</p>
+      </div>
+      <div class="segment__media" style="--h:360px">
+        <div class="segment__frame">
+          <img class="segment__noise" src="assets/images/card-noise.png" alt="">
+          <div class="segment__art"><img src="assets/images/segment-aviation.png" alt="Airplane" style="left:-95.64%;top:4.67%;width:190.59%;height:90.66%"></div>
+        </div>
       </div>
     </article>
   </section>
@@ -260,10 +277,10 @@
   <!-- ============ 4. INTRO ============ -->
   <section class="intro">
     <div class="intro__inner">
-      <h2 class="t-h48 intro__line">Pick your space.</h2>
+      <h2 class="t-h48 intro__line" data-reveal>Pick your space.</h2>
       <div class="intro__sub">
         <span class="intro__highlight" aria-hidden="true"></span>
-        <p class="t-h48 intro__line">We’ll show you the coverage.</p>
+        <p class="t-h48 intro__line" data-reveal="150">We’ll show you the coverage.</p>
       </div>
     </div>
   </section>
@@ -272,7 +289,7 @@
   <section class="coverage" aria-label="Coverage planner">
     <div class="tabs" role="tablist">
       <button class="tab is-active" role="tab" aria-selected="true" type="button">
-        <span class="tab__title t-h20">Small Office</span>
+        <span class="tab__title t-h20" data-reveal>Small Office</span>
         <span class="tab__meta">
           <img class="ind-active" src="assets/icons/coverage-indicator-active.svg" alt="">
           <img class="ind-default" src="assets/icons/coverage-indicator.svg" alt="">
@@ -280,7 +297,7 @@
         </span>
       </button>
       <button class="tab" role="tab" aria-selected="false" type="button">
-        <span class="tab__title t-h20">Retail Showroom</span>
+        <span class="tab__title t-h20" data-reveal>Retail Showroom</span>
         <span class="tab__meta">
           <img class="ind-active" src="assets/icons/coverage-indicator-active.svg" alt="">
           <img class="ind-default" src="assets/icons/coverage-indicator.svg" alt="">
@@ -288,7 +305,7 @@
         </span>
       </button>
       <button class="tab" role="tab" aria-selected="false" type="button">
-        <span class="tab__title t-h20">Medical Clinic</span>
+        <span class="tab__title t-h20" data-reveal>Medical Clinic</span>
         <span class="tab__meta">
           <img class="ind-active" src="assets/icons/coverage-indicator-active.svg" alt="">
           <img class="ind-default" src="assets/icons/coverage-indicator.svg" alt="">
@@ -296,7 +313,7 @@
         </span>
       </button>
       <button class="tab" role="tab" aria-selected="false" type="button">
-        <span class="tab__title t-h20">Restaurant</span>
+        <span class="tab__title t-h20" data-reveal>Restaurant</span>
         <span class="tab__meta">
           <img class="ind-active" src="assets/icons/coverage-indicator-active.svg" alt="">
           <img class="ind-default" src="assets/icons/coverage-indicator.svg" alt="">
@@ -304,7 +321,7 @@
         </span>
       </button>
       <button class="tab" role="tab" aria-selected="false" type="button">
-        <span class="tab__title t-h20">Warehouse</span>
+        <span class="tab__title t-h20" data-reveal>Warehouse</span>
         <span class="tab__meta">
           <img class="ind-active" src="assets/icons/coverage-indicator-active.svg" alt="">
           <img class="ind-default" src="assets/icons/coverage-indicator.svg" alt="">
@@ -321,7 +338,7 @@
         </div>
         <div class="setup__body">
           <div class="setup__head">
-            <h3 class="t-h32" data-setup-title>Small Office</h3>
+            <h3 class="t-h32" data-setup-title data-reveal>Small Office</h3>
             <div class="setup__tags">
               <span class="setup__tag t-label-14l">5–20 employees</span>
               <span class="setup__tag t-label-14l">800–2,000 sq ft</span>
@@ -330,15 +347,15 @@
           <ul class="setup__features">
             <li class="setup__feature">
               <span class="feature-icon"><span class="icon-16 icon-check"><img src="assets/icons/check.svg" alt=""></span></span>
-              <p class="t-body-16">Open workspace with private office</p>
+              <p class="t-body-16" data-reveal>Open workspace with private office</p>
             </li>
             <li class="setup__feature">
               <span class="feature-icon"><span class="icon-16 icon-check"><img src="assets/icons/check.svg" alt=""></span></span>
-              <p class="t-body-16">Dedicated meeting room</p>
+              <p class="t-body-16" data-reveal>Dedicated meeting room</p>
             </li>
             <li class="setup__feature">
               <span class="feature-icon"><span class="icon-16 icon-check"><img src="assets/icons/check.svg" alt=""></span></span>
-              <p class="t-body-16">Secure server room</p>
+              <p class="t-body-16" data-reveal>Secure server room</p>
             </li>
           </ul>
         </div>
@@ -352,13 +369,20 @@
           <p class="plan__label" style="left:549px;top:212px">Open Office</p>
           <p class="plan__label" style="left:132px;top:287px">Meeting Room</p>
           <p class="plan__label" style="left:188px;top:396px">Kitchen</p>
-          <img class="plan__rings" src="assets/decor/coverage-rings.svg" alt="" aria-hidden="true">
+          <svg class="plan__rings plan__pulse" viewBox="0 0 1082 1082" aria-hidden="true">
+            <circle cx="541.13" cy="541.337" r="232.87"/>
+            <circle cx="541.13" cy="541.337" r="232.87"/>
+            <circle cx="541.13" cy="541.337" r="232.87"/>
+            <circle cx="541.13" cy="541.337" r="232.87"/>
+          </svg>
+          <img class="plan__rings plan__rings--static" src="assets/decor/coverage-rings.svg" alt="" aria-hidden="true">
+          <img class="plan__rings plan__rings--glow" src="assets/decor/coverage-rings-glow.svg" alt="" aria-hidden="true">
           <div class="signal__line" aria-hidden="true"><div><img src="assets/decor/signal-line.svg" alt=""></div></div>
           <span class="signal__end" aria-hidden="true"></span>
           <div class="ap">
             <div class="ap__icon" aria-hidden="true">
               <span class="corners"><i></i><i></i><i></i><i></i></span>
-              <div class="ap__grid">
+              <div class="ap__grid" data-dots>
                 <i style="left:37px;top:27px"></i>
                 <i style="left:29px;top:27px;opacity:0.6"></i>
                 <i style="left:45px;top:27px;opacity:0.6"></i>
@@ -401,6 +425,6 @@
   </section>
 
 </div>
-<script src="js/main.js?v=c8af619"></script>
+<script src="js/main.js?v=anim1"></script>
 </body>
 </html>
