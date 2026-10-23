@@ -1,7 +1,15 @@
 # PigeonM
 
-Вёрстка лендинга «Business» по макету Figma
-[PigeonM / Concept 2](https://www.figma.com/design/THAEweWSAqB7TEOtSaxAgO/PigeonM?node-id=112-6940).
+Вёрстка лендинга «Business» по макетам Figma.
+
+| Концепт | Страница | Макет |
+|---|---|---|
+| Концепт 1 | [flexyforall.github.io/PigeonM/](https://flexyforall.github.io/PigeonM/) | [Figma, Concept 2](https://www.figma.com/design/THAEweWSAqB7TEOtSaxAgO/PigeonM?node-id=112-6940) |
+| Концепт 2 | [flexyforall.github.io/PigeonM/concept-2/](https://flexyforall.github.io/PigeonM/concept-2/) | [Figma, Concept 1](https://www.figma.com/design/THAEweWSAqB7TEOtSaxAgO/PigeonM?node-id=99-6939) |
+
+Второй концепт лежит в папке `concept-2/` со своими стилями, скриптом и картинками;
+шрифты и экран загрузки общие (`assets/fonts`, `assets/loader`). Карточки сегментов во втором
+концепте при наведении становятся тёмными и наклоняются (кадр «Cards hover» в Figma).
 
 Чистые HTML + CSS + немного JS, без сборки. Макет — 1440 px; вёрстка тянется на всю ширину экрана (от 1280 px), на 1440 px совпадает с Figma.
 
