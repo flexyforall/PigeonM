@@ -1103,13 +1103,13 @@ a {
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
   transform-origin: 541.13px 541.337px;
-  animation: signal-wave 6s linear infinite;
+  animation: signal-wave 9s linear infinite;
   opacity: 0;
 }
-.plan__pulse circle:nth-child(2) { animation-delay: -1.2s; }
-.plan__pulse circle:nth-child(3) { animation-delay: -2.4s; }
-.plan__pulse circle:nth-child(4) { animation-delay: -3.6s; }
-.plan__pulse circle:nth-child(5) { animation-delay: -4.8s; }
+.plan__pulse circle:nth-child(2) { animation-delay: -1.8s; }
+.plan__pulse circle:nth-child(3) { animation-delay: -3.6s; }
+.plan__pulse circle:nth-child(4) { animation-delay: -5.4s; }
+.plan__pulse circle:nth-child(5) { animation-delay: -7.2s; }
 @keyframes signal-wave {
   0%   { transform: scale(0.06); opacity: 0; }
   6%   { opacity: 1; }
@@ -1144,4 +1144,154 @@ a {
 @keyframes ind-wave {
   0%   { transform: scale(0.26); opacity: 1; }
   100% { transform: scale(1); opacity: 0; }
+}
+
+/* ============================================================
+   LOADER  (Figma: PigeonM / Loading animation, 114:10425)
+   ============================================================ */
+.loader { display: none; }
+.anim .loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: block;
+  overflow: hidden;
+  background: var(--color-page);
+  clip-path: inset(0 0 0 0);
+}
+html.is-loading,
+html.is-loading body { overflow: hidden; }
+
+/* Top-left: logo and status lines */
+.loader__logo {
+  position: absolute;
+  left: 40px;
+  top: 40px;
+  width: 203px;
+  height: 50.7231px;
+}
+.loader__line {
+  position: absolute;
+  left: 38px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: 0.4px;
+  color: var(--color-black);
+  white-space: nowrap;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.9s var(--ease-out);
+}
+.loader__line.is-in { clip-path: inset(0 0 0 0); }
+
+/* Bottom: signal waves radiating from the green square */
+.loader__signal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  bottom: 0;
+  overflow: hidden;
+  background: var(--color-black);
+}
+.loader__rings {
+  position: absolute;
+  left: calc(50% - 1001px);
+  top: calc(50% - 1001px);
+  width: 2002px;
+  height: 2002px;
+  overflow: visible;
+}
+.loader__waves circle {
+  fill: #00a167;
+  fill-opacity: 0.03;
+  stroke: rgba(0, 161, 103, 0.2);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  transform-origin: 1001.27px 1001.69px;
+  animation: loader-wave 7.5s linear infinite;
+  opacity: 0;
+}
+.loader__waves circle:nth-child(2) { animation-delay: -1.5s; }
+.loader__waves circle:nth-child(3) { animation-delay: -3s; }
+.loader__waves circle:nth-child(4) { animation-delay: -4.5s; }
+.loader__waves circle:nth-child(5) { animation-delay: -6s; }
+@keyframes loader-wave {
+  0%   { transform: scale(0.02); opacity: 0; }
+  8%   { opacity: 1; }
+  70%  { opacity: 0.9; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+.loader__dot {
+  position: absolute;
+  left: calc(50% - 9px);
+  top: calc(50% - 9px);
+  width: 18px;
+  height: 18px;
+  background: #00a167;
+}
+
+/* Top-right: green progress panel that grows to full screen */
+.loader__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 50%;
+  overflow: hidden;
+  background: var(--color-mint);
+  transition: width 0.85s var(--ease-in-out), height 0.85s var(--ease-in-out);
+}
+.loader__panel.is-wide { width: 100%; }
+.loader__panel.is-full { height: 100%; }
+/* Cross pattern is anchored to the screen; revealed left to right with progress */
+.loader__pattern {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  clip-path: inset(0 50vw 0 0);
+}
+.loader__pattern i {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 596px;
+  background: url("../assets/loader/cross-pattern.svg") right top / 1697px 615px repeat-x;
+}
+.loader__pattern i:nth-child(1) { top: 0; }
+.loader__pattern i:nth-child(2) { top: 604px; }
+.loader__pattern i:nth-child(3) { top: 1208px; }
+.loader__pattern i:nth-child(4) { top: 1812px; }
+.loader__status {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.loader__square {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  background: var(--color-white);
+}
+.loader__value {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: 0.96px;
+  color: var(--color-black);
+  white-space: nowrap;
+}
+
+/* Exit: the bottom edge rises and uncovers the landing page */
+.anim .loader.is-leaving {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1s var(--ease-in-out);
 }

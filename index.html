@@ -15,9 +15,36 @@
   </script>
   <link rel="preload" href="assets/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=anim3">
+  <link rel="stylesheet" href="css/styles.css?v=loader2">
 </head>
 <body>
+<!-- ============ LOADER (only with animations enabled) ============ -->
+<div class="loader" aria-hidden="true">
+  <div class="loader__intro">
+    <img class="loader__logo" src="assets/loader/logo-pigeonm-black.svg" alt="">
+    <p class="loader__line" style="top:143px">// Please wait</p>
+    <p class="loader__line" style="top:183px">// Loading...</p>
+  </div>
+  <div class="loader__signal">
+    <img class="loader__rings" src="assets/loader/coverage-rings-glow.svg" alt="">
+    <svg class="loader__rings loader__waves" viewBox="0 0 2002 2002">
+      <circle cx="1001.27" cy="1001.69" r="476.544"/>
+      <circle cx="1001.27" cy="1001.69" r="476.544"/>
+      <circle cx="1001.27" cy="1001.69" r="476.544"/>
+      <circle cx="1001.27" cy="1001.69" r="476.544"/>
+      <circle cx="1001.27" cy="1001.69" r="476.544"/>
+    </svg>
+    <span class="loader__dot"></span>
+  </div>
+  <div class="loader__panel">
+    <div class="loader__pattern"><i></i><i></i><i></i><i></i></div>
+    <div class="loader__status">
+      <span class="loader__square"></span>
+      <span class="loader__value">0%</span>
+    </div>
+  </div>
+</div>
+
 <div class="page">
 
   <!-- ============ 1. HERO ============ -->
@@ -431,6 +458,6 @@
   </section>
 
 </div>
-<script src="js/main.js?v=anim3"></script>
+<script src="js/main.js?v=loader2"></script>
 </body>
 </html>

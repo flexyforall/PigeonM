@@ -1,0 +1,30 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="2002" height="2002" viewBox="0 0 2002 2002" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Coverage Rings">
+<g id="Ellipse 8" filter="url(#filter0_f_0_21)">
+<circle cx="1001" cy="1001" r="901" fill="#00A167" fill-opacity="0.1"/>
+</g>
+<g id="Ellipse 10">
+<circle cx="1001.27" cy="1001.69" r="476.794" fill="#00A167" fill-opacity="0.03"/>
+<circle cx="1001.27" cy="1001.69" r="476.294" stroke="#00A167" stroke-opacity="0.2"/>
+</g>
+<g id="Ellipse 9">
+<circle cx="1001.27" cy="1001.69" r="336.265" fill="#00A167" fill-opacity="0.03"/>
+<circle cx="1001.27" cy="1001.69" r="335.765" stroke="#00A167" stroke-opacity="0.2"/>
+</g>
+<g id="Ellipse 7">
+<circle cx="1001.27" cy="1001.69" r="200.755" fill="#00A167" fill-opacity="0.03"/>
+<circle cx="1001.27" cy="1001.69" r="200.255" stroke="#00A167" stroke-opacity="0.2"/>
+</g>
+<g id="Ellipse 6">
+<circle cx="1001.27" cy="1001.69" r="90.3398" fill="#00A167" fill-opacity="0.03"/>
+<circle cx="1001.27" cy="1001.69" r="89.8398" stroke="#00A167" stroke-opacity="0.2"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_f_0_21" x="0" y="0" width="2002" height="2002" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="50" result="effect1_foregroundBlur_0_21"/>
+</filter>
+</defs>
+</svg>

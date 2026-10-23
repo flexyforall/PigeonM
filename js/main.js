@@ -188,14 +188,88 @@
     track.style.setProperty('--marquee-duration', `${width / 45}s`); // ~45px per second
   }
 
+  // Page loader: progress follows real asset loading, then the green panel
+  // grows to full screen and lifts off the page. Resolves when the page starts to show.
+  function runLoader() {
+    const loader = document.querySelector('.loader');
+    if (!loader) return Promise.resolve();
+
+    const panel = loader.querySelector('.loader__panel');
+    const pattern = loader.querySelector('.loader__pattern');
+    const value = loader.querySelector('.loader__value');
+
+    root.classList.add('is-loading');
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+
+    loader.querySelectorAll('.loader__line').forEach((line, i) => {
+      setTimeout(() => line.classList.add('is-in'), 150 + i * 220);
+    });
+
+    // Progress source: page images + fonts; window load completes it.
+    const images = Array.from(document.images).filter((img) => !loader.contains(img));
+    const total = images.length + 1;
+    let loaded = 0;
+    const done = () => { loaded = Math.min(total, loaded + 1); };
+    images.forEach((img) => {
+      if (img.complete) loaded++;
+      else {
+        img.addEventListener('load', done, { once: true });
+        img.addEventListener('error', done, { once: true });
+      }
+    });
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(done);
+    if (document.readyState === 'complete') loaded = total;
+    else window.addEventListener('load', () => { loaded = total; }, { once: true });
+
+    const MIN_TIME = 2200; // never faster than this, so the sequence reads
+    const MAX_TIME = 9000; // never hang on a slow asset
+    const start = performance.now();
+    let shown = 0;
+
+    return new Promise((resolve) => {
+      const tick = (now) => {
+        const elapsed = now - start;
+        const target = elapsed > MAX_TIME ? 100 : (loaded / total) * 100;
+        const goal = Math.min(target, (elapsed / MIN_TIME) * 100);
+        shown += (goal - shown) * 0.1;
+        if (goal - shown < 0.4) shown = goal;
+
+        value.textContent = `${Math.floor(shown)}%`;
+        pattern.style.clipPath = `inset(0 ${(1 - shown / 100) * 50}vw 0 0)`;
+
+        if (shown < 100) requestAnimationFrame(tick);
+        else finish();
+      };
+      requestAnimationFrame(tick);
+
+      async function finish() {
+        value.textContent = 'Ready';
+        await wait(450);
+        panel.classList.add('is-wide');
+        await wait(900);
+        panel.classList.add('is-full');
+        await wait(1000);
+        loader.classList.add('is-leaving');
+        setTimeout(resolve, 350); // start the page animations as it uncovers
+        await wait(1050);
+        loader.remove();
+        root.classList.remove('is-loading');
+      }
+    });
+  }
+
   async function init() {
+    const loaded = runLoader();
     if (document.fonts) await document.fonts.ready;
 
     document.querySelectorAll('[data-reveal]').forEach(splitLines);
     document.querySelectorAll('.segment').forEach((el, i) => el.style.setProperty('--i', i));
     startMarquee();
 
-    // Hero plays on load.
+    await loaded;
+
+    // Hero plays once the loader lifts.
     const lead = document.querySelector('.hero__lead');
     const cta = document.querySelector('.hero [data-rise]');
     // Supporting text and button appear together with the headline.
