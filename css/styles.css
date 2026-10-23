@@ -983,48 +983,31 @@ a {
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-/* --- Hero background: slow camera move + drifting light streaks --- */
-.hero__streaks { opacity: 0; }
+/* --- Hero background: camera move on the photo itself (zoom + pan), seamless loop --- */
 .anim .hero__frame {
-  transform-origin: 70% 55%;
-  animation: hero-camera 24s var(--ease-in-out) infinite alternate;
+  transform-origin: 65% 50%;
+  animation: hero-camera 14s var(--ease-in-out) infinite alternate;
   will-change: transform;
-}
-.anim .hero__streaks {
-  mix-blend-mode: screen;
-  animation: hero-streaks 9s ease-in-out infinite;
-  will-change: transform, opacity;
 }
 @keyframes hero-camera {
   from { transform: scale(1) translate3d(0, 0, 0); }
-  to   { transform: scale(1.12) translate3d(-2.5%, 1%, 0); }
-}
-@keyframes hero-streaks {
-  0%   { opacity: 0;    transform: scale(1.08) translate3d(4%, 0, 0); }
-  50%  { opacity: 0.32; }
-  100% { opacity: 0;    transform: scale(1.08) translate3d(-6%, 0, 0); }
+  to   { transform: scale(1.18) translate3d(-3.5%, -1.5%, 0); }
 }
 
-/* --- Hero title: typing with caret, selection highlight, ghost text --- */
+/* --- Hero title: caret with a trailing highlight paints the whole headline --- */
 .anim .hero__title,
 .anim .hero__caret,
 .anim .hero__highlight { visibility: hidden; }
 .anim .hero__inner.is-typing .hero__title,
 .anim .hero__inner.is-typing .hero__caret,
 .anim .hero__inner.is-typing .hero__highlight { visibility: visible; }
-.hero__title .ch { opacity: 0; }
-.hero__title .ch.on { opacity: 1; }
-.anim .hero__highlight {
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.12s linear;
-}
-.anim .hero__title .ghost {
-  opacity: 0;
-  filter: blur(6px);
-  transition: opacity 0.9s var(--ease-out), filter 0.9s var(--ease-out);
-}
-.anim .hero__title .ghost.on { opacity: 1; filter: none; }
+.anim .hero__title { opacity: 0; transition: opacity 0.5s var(--ease-out); }
+.anim .hero__inner.is-typing .hero__title { opacity: 1; }
+.hero__title .ch { color: var(--white-40); }
+.hero__title .ch.on { color: var(--color-white); }
+.anim .hero__highlight { width: 0; }
+.hero__highlight.is-moving { transition: left 0.06s linear, width 0.06s linear; }
+.hero__highlight.is-closing { transition: left 0.3s var(--ease-out), width 0.3s var(--ease-out); }
 .hero__caret.blink { animation: caret-blink 1.06s steps(1) infinite; }
 @keyframes caret-blink { 50% { opacity: 0; } }
 
@@ -1104,7 +1087,7 @@ a {
 }
 .anim .intro.is-in .intro__highlight { transform: none; }
 
-/* --- Coverage: signal rings radiate from the access point --- */
+/* --- Coverage: signal waves (fill + stroke) radiate from the access point --- */
 .anim .plan__rings--static { display: none; }
 .anim .plan__rings--glow,
 .anim .plan__pulse { display: block; }
@@ -1116,19 +1099,51 @@ a {
   overflow: visible;
 }
 .plan__pulse circle {
-  fill: none;
-  stroke: #00a167;
+  fill: #00a167;
+  fill-opacity: 0.1;
+  stroke: rgba(0, 161, 103, 0.5);
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
   transform-origin: 541.13px 541.337px;
-  animation: signal-pulse 4.8s linear infinite;
+  animation: signal-wave 6s linear infinite;
   opacity: 0;
 }
 .plan__pulse circle:nth-child(2) { animation-delay: -1.2s; }
 .plan__pulse circle:nth-child(3) { animation-delay: -2.4s; }
 .plan__pulse circle:nth-child(4) { animation-delay: -3.6s; }
-@keyframes signal-pulse {
+.plan__pulse circle:nth-child(5) { animation-delay: -4.8s; }
+@keyframes signal-wave {
   0%   { transform: scale(0.06); opacity: 0; }
-  8%   { opacity: 0.6; }
+  6%   { opacity: 1; }
+  60%  { opacity: 0.8; }
   100% { transform: scale(1.3); opacity: 0; }
+}
+
+/* --- Tab indicators: stroke rings radiate from the dot --- */
+.ind-pulse { display: none; }
+.anim .tab .ind-active,
+.anim .tab .ind-default { display: none; }
+.anim .ind-pulse {
+  display: block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  overflow: visible;
+  color: #00ffa4;
+}
+.anim .tab.is-active .ind-pulse { color: #00a167; }
+.ind-pulse__dot { fill: currentColor; }
+.ind-pulse__wave {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 0.5;
+  vector-effect: non-scaling-stroke;
+  transform-origin: 10px 10px;
+  animation: ind-wave 2.4s var(--ease-out) infinite;
+  opacity: 0;
+}
+.ind-pulse__wave:nth-child(2) { animation-delay: -1.2s; }
+@keyframes ind-wave {
+  0%   { transform: scale(0.26); opacity: 1; }
+  100% { transform: scale(1); opacity: 0; }
 }

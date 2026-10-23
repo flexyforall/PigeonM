@@ -100,7 +100,8 @@
     icon.classList.add('is-in');
   }
 
-  // Hero headline: typed with a caret, highlight follows "corn", ghost text fades in.
+  // Hero headline: a caret with a trailing green highlight runs through the whole
+  // headline and paints the semi-transparent text white.
   async function typeHeadline() {
     const inner = document.querySelector('.hero__inner');
     const heading = inner.querySelector('.hero__title');
@@ -108,50 +109,60 @@
     const highlight = inner.querySelector('.hero__highlight');
     const ghost = heading.querySelector('.ghost');
 
-    const typed = heading.firstChild.textContent;
-    heading.firstChild.remove();
-    const chars = Array.from(typed).map((c) => {
+    // Vertical offsets from the design, measured against the second line.
+    const lineTop2 = ghost.offsetTop;
+    const caretDy = caret.offsetTop - lineTop2;
+    const highlightDy = highlight.offsetTop - lineTop2;
+    const trail = 136; // highlight length behind the caret, as in the design
+
+    const text = heading.textContent;
+    heading.textContent = '';
+    const chars = Array.from(text).map((c) => {
       const span = document.createElement('span');
       span.className = 'ch';
       span.textContent = c;
-      heading.insertBefore(span, ghost);
+      heading.appendChild(span);
       return span;
     });
 
-    const caretHome = { left: caret.style.left, top: caret.style.top };
-    const hlLeft = highlight.offsetLeft;
-    const hlWidth = highlight.offsetWidth;
-    const caretTopOffset = caret.offsetTop - ghost.offsetTop; // caret sits 9px below the line top
-    const moveCaret = (x, lineTop) => {
+    let lineTop = null;
+    let lineStart = 0;
+    const place = (x, top) => {
+      const lineChanged = top !== lineTop;
+      if (lineChanged) {
+        lineTop = top;
+        lineStart = x;
+      }
       caret.style.left = `${x + 1}px`;
-      caret.style.top = `${lineTop + caretTopOffset}px`;
+      caret.style.top = `${top + caretDy}px`;
+      const left = Math.max(lineStart, x - trail);
+      highlight.classList.toggle('is-moving', !lineChanged);
+      highlight.style.top = `${top + highlightDy}px`;
+      highlight.style.left = `${left}px`;
+      highlight.style.width = `${x - left}px`;
     };
 
-    moveCaret(0, 0);
+    place(chars[0].offsetLeft, chars[0].offsetTop);
     caret.classList.add('blink');
     inner.classList.add('is-typing');
-    await wait(650);
+    await wait(900);
     caret.classList.remove('blink');
 
     for (const ch of chars) {
       ch.classList.add('on');
-      const right = ch.offsetLeft + ch.offsetWidth;
-      moveCaret(right, ch.offsetTop);
-      if (ch.offsetTop === ghost.offsetTop) {
-        // same line as the highlight: stretch it under the typed letters
-        const grow = Math.max(0, Math.min(1, (right - hlLeft) / hlWidth));
-        if (grow > 0) highlight.style.transform = `scaleX(${grow})`;
-      }
-      await wait(ch.textContent === ' ' ? 70 : 38 + Math.random() * 34);
+      if (ch.offsetTop !== lineTop) place(ch.offsetLeft, ch.offsetTop); // new line starts at its first letter
+      place(ch.offsetLeft + ch.offsetWidth, ch.offsetTop);
+      await wait(ch.textContent === ' ' ? 60 : 34 + Math.random() * 24);
     }
 
-    // Land exactly on the design positions.
-    highlight.style.transform = 'none';
-    caret.style.left = caretHome.left;
-    caret.style.top = caretHome.top;
+    // Highlight folds into the caret, which keeps blinking at the end of the headline.
+    const end = parseFloat(caret.style.left) - 1;
+    highlight.classList.remove('is-moving');
+    highlight.classList.add('is-closing');
+    highlight.style.left = `${end}px`;
+    highlight.style.width = '0px';
     caret.classList.add('blink');
-    await wait(180);
-    ghost.classList.add('on');
+    await wait(250);
   }
 
   // Endless right-to-left logo strip.
