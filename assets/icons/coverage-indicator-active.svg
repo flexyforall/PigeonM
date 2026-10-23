@@ -1,0 +1,7 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Coverage Indicator">
+<circle id="Ellipse 4" cx="10" cy="10" r="2.5" fill="#00A167"/>
+<path id="Ellipse 5" d="M16 10C16 13.3137 13.3137 16 10 16C6.68629 16 4 13.3137 4 10C4 6.68629 6.68629 4 10 4C13.3137 4 16 6.68629 16 10Z" stroke-width="0.5" stroke="#00A167"/>
+<path id="Ellipse 6" opacity="0.3" d="M19.75 10C19.75 15.3848 15.3848 19.75 10 19.75C4.61522 19.75 0.25 15.3848 0.25 10C0.25 4.61522 4.61522 0.25 10 0.25C15.3848 0.25 19.75 4.61522 19.75 10Z" stroke-width="0.5" stroke="#00A167"/>
+</g>
+</svg>
