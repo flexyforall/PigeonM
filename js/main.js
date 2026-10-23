@@ -145,14 +145,14 @@
     place(chars[0].offsetLeft, chars[0].offsetTop);
     caret.classList.add('blink');
     inner.classList.add('is-typing');
-    await wait(900);
+    await wait(350);
     caret.classList.remove('blink');
 
     for (const ch of chars) {
       ch.classList.add('on');
       if (ch.offsetTop !== lineTop) place(ch.offsetLeft, ch.offsetTop); // new line starts at its first letter
       place(ch.offsetLeft + ch.offsetWidth, ch.offsetTop);
-      await wait(ch.textContent === ' ' ? 60 : 34 + Math.random() * 24);
+      await wait(ch.textContent === ' ' ? 40 : 20 + Math.random() * 12);
     }
 
     // Highlight folds into the caret, which keeps blinking at the end of the headline.
@@ -198,10 +198,10 @@
     // Hero plays on load.
     const lead = document.querySelector('.hero__lead');
     const cta = document.querySelector('.hero [data-rise]');
-    typeHeadline().then(() => {
-      reveal(lead);
-      setTimeout(() => cta.classList.add('is-in'), 350);
-    });
+    // Supporting text and button appear together with the headline.
+    typeHeadline();
+    reveal(lead, 250);
+    setTimeout(() => cta.classList.add('is-in'), 450);
 
     // Other sections play once when they scroll into view.
     const sections = {
