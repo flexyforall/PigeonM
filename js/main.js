@@ -100,20 +100,16 @@
     icon.classList.add('is-in');
   }
 
-  // Hero headline: a caret with a trailing green highlight runs through the whole
-  // headline and paints the semi-transparent text white.
+  // Hero headline: a caret runs through the whole headline and paints the
+  // semi-transparent text white.
   async function typeHeadline() {
     const inner = document.querySelector('.hero__inner');
     const heading = inner.querySelector('.hero__title');
     const caret = inner.querySelector('.hero__caret');
-    const highlight = inner.querySelector('.hero__highlight');
     const ghost = heading.querySelector('.ghost');
 
-    // Vertical offsets from the design, measured against the second line.
-    const lineTop2 = ghost.offsetTop;
-    const caretDy = caret.offsetTop - lineTop2;
-    const highlightDy = highlight.offsetTop - lineTop2;
-    const trail = 136; // highlight length behind the caret, as in the design
+    // Caret offset from the design, measured against the second line.
+    const caretDy = caret.offsetTop - ghost.offsetTop;
 
     const text = heading.textContent;
     heading.textContent = '';
@@ -125,21 +121,9 @@
       return span;
     });
 
-    let lineTop = null;
-    let lineStart = 0;
     const place = (x, top) => {
-      const lineChanged = top !== lineTop;
-      if (lineChanged) {
-        lineTop = top;
-        lineStart = x;
-      }
       caret.style.left = `${x + 1}px`;
       caret.style.top = `${top + caretDy}px`;
-      const left = Math.max(lineStart, x - trail);
-      highlight.classList.toggle('is-moving', !lineChanged);
-      highlight.style.top = `${top + highlightDy}px`;
-      highlight.style.left = `${left}px`;
-      highlight.style.width = `${x - left}px`;
     };
 
     place(chars[0].offsetLeft, chars[0].offsetTop);
@@ -150,19 +134,22 @@
 
     for (const ch of chars) {
       ch.classList.add('on');
-      if (ch.offsetTop !== lineTop) place(ch.offsetLeft, ch.offsetTop); // new line starts at its first letter
       place(ch.offsetLeft + ch.offsetWidth, ch.offsetTop);
       await wait(ch.textContent === ' ' ? 40 : 20 + Math.random() * 12);
     }
+    caret.classList.add('blink'); // keeps blinking at the end of the headline
+  }
 
-    // Highlight folds into the caret, which keeps blinking at the end of the headline.
-    const end = parseFloat(caret.style.left) - 1;
-    highlight.classList.remove('is-moving');
-    highlight.classList.add('is-closing');
-    highlight.style.left = `${end}px`;
-    highlight.style.width = '0px';
-    caret.classList.add('blink');
-    await wait(250);
+  // Squares in the access-point icon keep fading out and back in at random.
+  function twinkle(grid) {
+    const dots = Array.from(grid.querySelectorAll('i'));
+    setInterval(() => {
+      const off = grid.querySelectorAll('i.is-off').length;
+      const dot = dots[Math.floor(Math.random() * dots.length)];
+      if (dot.classList.contains('is-off') || off < dots.length * 0.35) {
+        dot.classList.toggle('is-off');
+      }
+    }, 140);
   }
 
   // Endless right-to-left logo strip.
@@ -195,7 +182,6 @@
     if (!loader) return Promise.resolve();
 
     const panel = loader.querySelector('.loader__panel');
-    const pattern = loader.querySelector('.loader__pattern');
     const value = loader.querySelector('.loader__value');
 
     root.classList.add('is-loading');
@@ -222,21 +208,26 @@
     if (document.readyState === 'complete') loaded = total;
     else window.addEventListener('load', () => { loaded = total; }, { once: true });
 
-    const MIN_TIME = 2200; // never faster than this, so the sequence reads
+    const MIN_TIME = 2600; // never faster than this, so the sequence reads
     const MAX_TIME = 9000; // never hang on a slow asset
+    const ease = (t) => (t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2);
     const start = performance.now();
+    let last = start;
     let shown = 0;
 
     return new Promise((resolve) => {
       const tick = (now) => {
         const elapsed = now - start;
-        const target = elapsed > MAX_TIME ? 100 : (loaded / total) * 100;
-        const goal = Math.min(target, (elapsed / MIN_TIME) * 100);
-        shown += (goal - shown) * 0.1;
-        if (goal - shown < 0.4) shown = goal;
+        const dt = Math.min(64, now - last);
+        last = now;
+        const real = elapsed > MAX_TIME ? 100 : (loaded / total) * 100;
+        const goal = Math.min(real, ease(Math.min(1, elapsed / MIN_TIME)) * 100);
+        // critically damped follow: no jumps when an asset finishes loading
+        shown += (goal - shown) * (1 - Math.exp(-dt / 140));
+        if (goal - shown < 0.15) shown = goal;
 
         value.textContent = `${Math.floor(shown)}%`;
-        pattern.style.clipPath = `inset(0 ${(1 - shown / 100) * 50}vw 0 0)`;
+        panel.style.setProperty('--progress', (shown / 100).toFixed(4));
 
         if (shown < 100) requestAnimationFrame(tick);
         else finish();
@@ -251,7 +242,7 @@
         panel.classList.add('is-full');
         await wait(1000);
         loader.classList.add('is-leaving');
-        setTimeout(resolve, 350); // start the page animations as it uncovers
+        setTimeout(resolve, 450); // start the page animations as it uncovers
         await wait(1050);
         loader.remove();
         root.classList.remove('is-loading');
@@ -274,8 +265,8 @@
     const cta = document.querySelector('.hero [data-rise]');
     // Supporting text and button appear together with the headline.
     typeHeadline();
-    reveal(lead, 250);
-    setTimeout(() => cta.classList.add('is-in'), 450);
+    reveal(lead, 500);
+    setTimeout(() => cta.classList.add('is-in'), 1100);
 
     // Other sections play once when they scroll into view.
     const sections = {
@@ -298,7 +289,9 @@
       '.coverage'(section) {
         section.querySelectorAll('.tab__title').forEach((el, i) => reveal(el, i * 60));
         section.querySelectorAll('.setup [data-reveal]').forEach((el, i) => reveal(el, 200 + i * 90));
-        revealDots(section.querySelector('.ap__grid'), 400, 700);
+        const grid = section.querySelector('.ap__grid');
+        revealDots(grid, 400, 700);
+        setTimeout(() => twinkle(grid), 1300);
       },
     };
 

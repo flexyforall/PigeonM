@@ -333,16 +333,6 @@ a {
   position: relative;
   height: 360px;
 }
-.hero__highlight {
-  position: absolute;
-  left: 174px;
-  top: 82px;
-  width: 136px;
-  height: 46px;
-  background: var(--color-mint);
-  mix-blend-mode: hard-light;
-  opacity: 0.5;
-}
 .hero__title {
   position: absolute;
   top: 0;
@@ -981,33 +971,51 @@ a {
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-/* --- Hero background: camera move on the photo itself (zoom + pan), seamless loop --- */
+/* --- Hero background: the photo itself moves like footage. Zoom and drift run
+   on independent cycles, so the motion never repeats the same way and has no seam. --- */
 .anim .hero__frame {
-  transform-origin: 65% 50%;
-  animation: hero-camera 14s var(--ease-in-out) infinite alternate;
+  transform-origin: 68% 50%;
+  scale: 1.12;
+  animation:
+    hero-zoom 9s var(--ease-in-out) infinite alternate,
+    hero-drift 13s var(--ease-in-out) infinite alternate;
   will-change: transform;
 }
-@keyframes hero-camera {
-  from { transform: scale(1) translate3d(0, 0, 0); }
-  to   { transform: scale(1.18) translate3d(-3.5%, -1.5%, 0); }
+@keyframes hero-zoom {
+  from { scale: 1.12; }
+  to   { scale: 1.32; }
+}
+@keyframes hero-drift {
+  from { translate: 3% 1.5%; }
+  to   { translate: -4% -2%; }
 }
 
-/* --- Hero title: caret with a trailing highlight paints the whole headline --- */
+/* --- Hero title: a caret runs through the headline and paints it white --- */
 .anim .hero__title,
-.anim .hero__caret,
-.anim .hero__highlight { visibility: hidden; }
+.anim .hero__caret { visibility: hidden; }
 .anim .hero__inner.is-typing .hero__title,
-.anim .hero__inner.is-typing .hero__caret,
-.anim .hero__inner.is-typing .hero__highlight { visibility: visible; }
+.anim .hero__inner.is-typing .hero__caret { visibility: visible; }
 .anim .hero__title { opacity: 0; transition: opacity 0.5s var(--ease-out); }
 .anim .hero__inner.is-typing .hero__title { opacity: 1; }
 .hero__title .ch { color: var(--white-40); }
 .hero__title .ch.on { color: var(--color-white); }
-.anim .hero__highlight { width: 0; }
-.hero__highlight.is-moving { transition: left 0.06s linear, width 0.06s linear; }
-.hero__highlight.is-closing { transition: left 0.3s var(--ease-out), width 0.3s var(--ease-out); }
 .hero__caret.blink { animation: caret-blink 1.06s steps(1) infinite; }
 @keyframes caret-blink { 50% { opacity: 0; } }
+
+/* Hero supporting text rises slower so the motion reads */
+.hero__lead .line__inner {
+  transition-duration: 1.5s;
+  transition-delay: calc(var(--d, 0ms) + var(--li, 0) * 180ms);
+}
+.anim .hero [data-rise] {
+  transform: translateY(24px);
+  transition-duration: 1.2s;
+}
+.anim .hero [data-rise].is-in { transform: none; }
+
+/* Access-point squares keep twinkling */
+.ap__grid i { transition: opacity 0.6s ease-in-out; }
+.ap__grid i.is-off { opacity: 0 !important; }
 
 /* --- Rise: element fades up --- */
 .anim [data-rise] {
@@ -1232,27 +1240,24 @@ html.is-loading body { overflow: hidden; }
   background: #00a167;
 }
 
-/* Top-right: green progress panel that grows to full screen */
+/* Top-right: green progress panel that grows to full screen.
+   The panel always covers the screen and is clipped to the visible block, so growing
+   it never re-lays out the pattern; the status label follows the block centre. */
 .loader__panel {
+  --progress: 0;
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 50%;
+  inset: 0;
   overflow: hidden;
   background: var(--color-mint);
-  transition: width 0.85s var(--ease-in-out), height 0.85s var(--ease-in-out);
+  clip-path: inset(0 0 50% 50%);
+  transition: clip-path 0.9s var(--ease-in-out);
 }
-.loader__panel.is-wide { width: 100%; }
-.loader__panel.is-full { height: 100%; }
-/* Cross pattern is anchored to the screen; revealed left to right with progress */
+.loader__panel.is-wide { clip-path: inset(0 0 50% 0); }
+.loader__panel.is-full { clip-path: inset(0 0 0 0); }
+/* Cross pattern, anchored to the screen like in the storyboard */
 .loader__pattern {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 100vw;
-  height: 100vh;
-  clip-path: inset(0 50vw 0 0);
+  inset: 0;
 }
 .loader__pattern i {
   position: absolute;
@@ -1265,15 +1270,29 @@ html.is-loading body { overflow: hidden; }
 .loader__pattern i:nth-child(2) { top: 604px; }
 .loader__pattern i:nth-child(3) { top: 1208px; }
 .loader__pattern i:nth-child(4) { top: 1812px; }
+/* A plain green cover slides right with progress and uncovers the pattern */
+.loader__cover {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 50%;
+  background: var(--color-mint);
+  transform: translate3d(calc(var(--progress) * 100%), 0, 0);
+  will-change: transform;
+}
 .loader__status {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  left: 0;
+  top: 0;
   display: flex;
   align-items: center;
   gap: 14px;
+  transform: translate(calc(75vw - 50%), calc(25vh - 50%));
+  transition: transform 0.9s var(--ease-in-out);
 }
+.loader__panel.is-wide .loader__status { transform: translate(calc(50vw - 50%), calc(25vh - 50%)); }
+.loader__panel.is-full .loader__status { transform: translate(calc(50vw - 50%), calc(50vh - 50%)); }
 .loader__square {
   width: 18px;
   height: 18px;
