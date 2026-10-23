@@ -166,7 +166,7 @@ a {
    ============================================================ */
 .hero {
   position: relative;
-  height: 773px;
+  height: 820px;
   overflow: hidden;
   color: var(--color-white);
 }
@@ -190,7 +190,7 @@ a {
 }
 .hero__dot {
   position: absolute;
-  top: 621px;
+  top: 668px;
   height: 7px;
   background: var(--color-white);
 }
@@ -280,8 +280,6 @@ a {
   color: var(--color-white);
   white-space: nowrap;
   text-align: center;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
 }
 .nav-btn--about { padding: 0 12px; }
 .nav-btn--icon { width: 40px; }
@@ -324,7 +322,7 @@ a {
 /* Hero content */
 .hero__content {
   position: absolute;
-  top: 184px;
+  top: 231px;
   left: 0;
   width: 100%;
   padding: 40px 60px;
@@ -368,7 +366,7 @@ a {
 /* Hero trust bar + logo strip */
 .trust {
   position: absolute;
-  top: 652px;
+  top: 699px;
   left: 0;
   width: 100%;
   display: flex;
