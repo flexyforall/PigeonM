@@ -15,7 +15,7 @@
   </script>
   <link rel="preload" href="../assets/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=c2-1">
+  <link rel="stylesheet" href="css/styles.css?v=c2-3">
 </head>
 <body>
 <!-- ============ LOADER (same as concept 1) ============ -->
@@ -62,7 +62,7 @@
             <span class="brand__logo"><img src="assets/icons/logo-pigeonm.svg" alt="PigeonM"></span>
           </a>
           <nav class="segmented t-btn-14" aria-label="Audience">
-            <a class="segmented__item segmented__item--icon is-active" href="#" aria-current="page"><img class="segmented__icon" src="assets/icons/audience-business.svg" alt="">Business<span class="corners"><i></i><i></i><i></i><i></i></span></a>
+            <a class="segmented__item segmented__item--icon is-active" href="#" aria-current="page"><img class="segmented__icon ind-static" src="assets/icons/audience-business.svg" alt=""><svg class="segmented__icon ind-pulse" viewBox="0 0 20 20" aria-hidden="true"><circle class="ind-pulse__wave" cx="10" cy="10" r="9.75"/><circle class="ind-pulse__wave" cx="10" cy="10" r="9.75"/><circle class="ind-pulse__dot" cx="10" cy="10" r="2.5"/></svg>Business<span class="corners"><i></i><i></i><i></i><i></i></span></a>
             <a class="segmented__item" href="#">Residential<span class="corners"><i></i><i></i><i></i><i></i></span></a>
             <a class="segmented__item" href="#">Mobile<span class="corners"><i></i><i></i><i></i><i></i></span></a>
           </nav>
@@ -143,12 +143,12 @@
     <div class="advantages__row">
       <article class="advantage">
         <div class="advantage__icon" aria-hidden="true" data-pop>
-          <i class="sq-frame" style="left:4.02px;top:15.22px"></i>
+          <i class="sq-frame sq-frame--back" style="left:4.02px;top:15.22px"></i>
           <i class="sq-frame" style="left:9.62px;top:9.62px"></i>
-          <i class="sq-frame" style="left:15.22px;top:4.02px"></i>
-          <i class="sq-dot" style="left:22.98px;top:22.98px;background:#e15b35"></i>
-          <i class="sq-dot" style="left:1px;top:44.97px"></i>
-          <i class="sq-dot" style="left:44.97px;top:1px"></i>
+          <i class="sq-frame sq-frame--front" style="left:15.22px;top:4.02px"></i>
+          <i class="sq-dot sq-dot--core" style="left:22.98px;top:22.98px;background:#e15b35"></i>
+          <i class="sq-dot sq-dot--bl" style="left:1px;top:44.97px"></i>
+          <i class="sq-dot sq-dot--tr" style="left:44.97px;top:1px"></i>
         </div>
         <div class="advantage__text">
           <h3 class="t-h20" data-reveal>Sized to your business</h3>
@@ -157,7 +157,22 @@
       </article>
       <article class="advantage">
         <div class="advantage__icon" aria-hidden="true" data-pop>
-          <img src="assets/icons/advantage-global.svg" alt="" style="left:0;top:0;width:52px;height:52px">
+          <svg class="icon-global" viewBox="0 0 52 52" fill="none" style="left:0;top:0;width:52px;height:52px">
+            <g opacity="0.3" stroke="#637C71">
+              <path d="M47.756 25.79C47.756 37.8055 38.0155 47.546 26 47.546C13.9845 47.546 4.244 37.8055 4.244 25.79C4.244 13.7744 13.9845 4.03395 26 4.03395C38.0155 4.03395 47.756 13.7744 47.756 25.79Z"/>
+              <path d="M25.7568 48.6699C18.2671 43.8141 13.312 35.3807 13.312 25.7899C13.312 16.1991 18.2671 7.76569 25.7568 2.90992"/>
+              <path d="M26.208 48.6699C33.6977 43.8141 38.6528 35.3807 38.6528 25.7899C38.6528 16.1991 33.6977 7.76569 26.208 2.90992"/>
+              <path d="M4.37114e-08 25.4979L52 25.4979"/>
+              <path d="M26.5021 2.18557e-08L26.5021 52"/>
+            </g>
+            <rect class="icon-global__core" x="23.296" y="23.0859" width="5.824" height="5.824" fill="#00A167"/>
+            <g class="icon-global__orbit">
+              <rect x="23.296" y="1.86991" width="5.408" height="5.408" fill="black"/>
+              <rect x="23.296" y="44.3019" width="5.408" height="5.408" fill="black"/>
+              <rect x="49.92" y="23.0859" width="5.408" height="5.408" transform="rotate(90 49.92 23.0859)" fill="black"/>
+              <rect x="7.48801" y="23.0859" width="5.408" height="5.408" transform="rotate(90 7.48801 23.0859)" fill="black"/>
+            </g>
+          </svg>
         </div>
         <div class="advantage__text">
           <h3 class="t-h20" data-reveal>Online in 150 countries</h3>
@@ -166,7 +181,21 @@
       </article>
       <article class="advantage">
         <div class="advantage__icon" aria-hidden="true" data-pop>
-          <img src="assets/icons/advantage-uptime.svg" alt="" style="left:0;top:3px;width:52px;height:46.8788px">
+          <svg class="icon-uptime" viewBox="0 0 52 46.8788" fill="none" style="left:0;top:3px;width:52px;height:46.8788px">
+            <path d="M5.51515 22.7424H46.4848" stroke="#A6C0B4"/>
+            <g fill="#A6C0B4">
+              <path d="M35.2576 28.3636L34.7576 28.3636L34.7576 37.8182L35.2576 37.8182L35.7576 37.8182L35.7576 28.3636L35.2576 28.3636ZM35.6111 28.0101C35.4159 27.8148 35.0993 27.8148 34.904 28.0101L31.722 31.1921C31.5268 31.3873 31.5268 31.7039 31.722 31.8992C31.9173 32.0944 32.2339 32.0944 32.4291 31.8992L35.2576 29.0707L38.086 31.8992C38.2813 32.0944 38.5978 32.0944 38.7931 31.8992C38.9884 31.7039 38.9884 31.3873 38.7931 31.1921L35.6111 28.0101Z"/>
+              <path d="M23.2424 31.1212L22.7424 31.1212L22.7424 40.5758L23.2424 40.5758L23.7424 40.5758L23.7424 31.1212L23.2424 31.1212ZM23.596 30.7677C23.4007 30.5724 23.0841 30.5724 22.8889 30.7677L19.7069 33.9496C19.5116 34.1449 19.5116 34.4615 19.7069 34.6567C19.9022 34.852 20.2187 34.852 20.414 34.6567L23.2424 31.8283L26.0709 34.6567C26.2661 34.852 26.5827 34.852 26.778 34.6567C26.9732 34.4615 26.9732 34.1449 26.778 33.9496L23.596 30.7677Z"/>
+              <path d="M42.9394 37.4242L42.4394 37.4242L42.4394 46.8788L42.9394 46.8788L43.4394 46.8788L43.4394 37.4242L42.9394 37.4242ZM43.2929 37.0707C43.0977 36.8754 42.7811 36.8754 42.5858 37.0707L39.4039 40.2527C39.2086 40.4479 39.2086 40.7645 39.4039 40.9598C39.5991 41.155 39.9157 41.155 40.111 40.9598L42.9394 38.1314L45.7678 40.9598C45.9631 41.155 46.2797 41.155 46.4749 40.9598C46.6702 40.7645 46.6702 40.4479 46.4749 40.2527L43.2929 37.0707Z"/>
+              <path d="M13.3939 23.2424L12.8939 23.2424L12.8939 32.697L13.3939 32.697L13.8939 32.697L13.8939 23.2424L13.3939 23.2424ZM13.7475 22.8889C13.5522 22.6936 13.2356 22.6936 13.0404 22.8889L9.8584 26.0709C9.66314 26.2661 9.66314 26.5827 9.8584 26.778C10.0537 26.9732 10.3702 26.9732 10.5655 26.778L13.3939 23.9495L16.2224 26.778C16.4176 26.9732 16.7342 26.9732 16.9295 26.778C17.1247 26.5827 17.1247 26.2661 16.9295 26.0709L13.7475 22.8889Z"/>
+              <path d="M10.6364 37.4242L10.1364 37.4242L10.1364 46.8788L10.6364 46.8788L11.1364 46.8788L11.1364 37.4242L10.6364 37.4242ZM10.9899 37.0707C10.7947 36.8754 10.4781 36.8754 10.2828 37.0707L7.10083 40.2527C6.90557 40.4479 6.90557 40.7645 7.10083 40.9598C7.29609 41.155 7.61267 41.155 7.80794 40.9598L10.6364 38.1314L13.4648 40.9598C13.6601 41.155 13.9766 41.155 14.1719 40.9598C14.3672 40.7645 14.3672 40.4479 14.1719 40.2527L10.9899 37.0707Z"/>
+            </g>
+            <rect class="icon-uptime__end icon-uptime__end--l" y="20.1" width="5.51515" height="5.51515" fill="#CB8B00"/>
+            <rect class="icon-uptime__end icon-uptime__end--r" x="46.4849" y="20.1" width="5.51515" height="5.51515" fill="#CB8B00"/>
+            <rect class="icon-uptime__bit" x="8.66667" width="5.51515" height="5.51515" fill="black"/>
+            <rect class="icon-uptime__bit" x="23.2424" y="9.84848" width="5.51515" height="5.51515" fill="black"/>
+            <rect class="icon-uptime__bit" x="37.8182" width="5.51515" height="5.51515" fill="black"/>
+          </svg>
         </div>
         <div class="advantage__text">
           <h3 class="t-h20" data-reveal>Uptime you can verify</h3>
@@ -178,7 +207,7 @@
 
   <!-- ============ 3. CARDS ============ -->
   <section class="cards" aria-label="Segments">
-    <div class="card-slot" data-rise>
+    <div class="card-slot">
       <article class="card" tabindex="0">
         <div class="card__text">
           <h3 class="t-h24">Fixed site</h3>
@@ -190,7 +219,7 @@
         </div>
       </article>
     </div>
-    <div class="card-slot" data-rise>
+    <div class="card-slot">
       <article class="card" tabindex="0">
         <div class="card__text">
           <h3 class="t-h24">Land mobility</h3>
@@ -202,7 +231,7 @@
         </div>
       </article>
     </div>
-    <div class="card-slot" data-rise>
+    <div class="card-slot">
       <article class="card" tabindex="0">
         <div class="card__text">
           <h3 class="t-h24">Maritime</h3>
@@ -214,7 +243,7 @@
         </div>
       </article>
     </div>
-    <div class="card-slot" data-rise>
+    <div class="card-slot">
       <article class="card" tabindex="0">
         <div class="card__text">
           <h3 class="t-h24">Aviation</h3>
@@ -416,6 +445,6 @@
   </section>
 
 </div>
-<script src="js/main.js?v=c2-1"></script>
+<script src="js/main.js?v=c2-3"></script>
 </body>
 </html>

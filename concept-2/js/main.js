@@ -287,7 +287,16 @@
         });
       },
       '.cards'(section) {
-        section.querySelectorAll('.card-slot').forEach((slot) => slot.classList.add('is-in'));
+        section.classList.add('is-in');
+        // drop the clipping once a card is up, so the hover tilt is never cut off
+        section.querySelectorAll('.card').forEach((card) => {
+          const done = (e) => {
+            if (e.propertyName !== 'translate') return;
+            card.parentElement.classList.add('is-done');
+            card.removeEventListener('transitionend', done);
+          };
+          card.addEventListener('transitionend', done);
+        });
       },
       '.intro'(section) {
         section.querySelectorAll('[data-reveal]').forEach((el) => reveal(el));
