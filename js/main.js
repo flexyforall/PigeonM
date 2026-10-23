@@ -16,6 +16,16 @@
   });
 
   const plan = document.querySelector('[data-plan]');
+
+  // Shrink the 959px floor-plan drawing to fit when the map is narrower than the design.
+  const canvas = plan.querySelector('.plan__canvas');
+  const fitCanvas = () => {
+    const scale = Math.min(1, plan.clientWidth / canvas.offsetWidth);
+    canvas.style.transform = scale < 1 ? `scale(${scale})` : '';
+  };
+  new ResizeObserver(fitCanvas).observe(plan);
+  fitCanvas();
+
   document.querySelectorAll('.legend__item').forEach((btn) => {
     btn.addEventListener('click', () => {
       const on = btn.getAttribute('aria-pressed') !== 'true';

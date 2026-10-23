@@ -56,7 +56,8 @@
   --black-10: rgba(0, 0, 0, 0.1);
   --black-80: rgba(0, 0, 0, 0.8);
 
-  --page-width: 1440px;
+  --page-width: 1440px; /* design width */
+  --page-min-width: 1280px;
 }
 
 /* ---------- Base ---------- */
@@ -71,7 +72,7 @@ body {
   padding: 0;
 }
 body {
-  min-width: var(--page-width);
+  min-width: var(--page-min-width);
   background: var(--color-page);
   color: var(--color-black);
   font-family: var(--font-body);
@@ -112,8 +113,7 @@ a {
 
 .page {
   position: relative;
-  width: var(--page-width);
-  margin: 0 auto;
+  width: 100%;
   background: var(--color-page);
   overflow: hidden;
 }
@@ -201,7 +201,7 @@ a {
   top: 0;
   left: 0;
   z-index: 2;
-  width: 1440px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -328,7 +328,7 @@ a {
   position: absolute;
   top: 184px;
   left: 0;
-  width: 1440px;
+  width: 100%;
   padding: 40px 60px;
 }
 .hero__inner {
@@ -382,7 +382,7 @@ a {
   position: absolute;
   top: 652px;
   left: 0;
-  width: 1440px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -439,7 +439,7 @@ a {
   align-items: center;
   justify-content: center;
   gap: 100px;
-  width: 1440px;
+  width: 100%;
   height: 90px;
   padding: 24px 0;
   border-top: 1px solid var(--white-20);
@@ -459,17 +459,12 @@ a {
   opacity: 0.5;
 }
 .logo__mask {
+  /* Figma clip-path group: rectangular mask, rendered as a clipping box */
   position: absolute;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-mode: alpha;
-  mask-mode: alpha;
+  overflow: hidden;
 }
 .logo__mask img {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
 }
 
 /* ============================================================
@@ -818,10 +813,20 @@ a {
   position: absolute;
   top: 0;
   left: 401px;
-  width: 959px;
+  right: 0;
   height: 679px;
   overflow: hidden;
   background: var(--white-10);
+}
+/* 959 × 679 drawing from the design, kept centered as the map widens */
+.plan__canvas {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 959px;
+  height: 679px;
+  margin-left: -479.5px;
+  transform-origin: 50% 50%;
 }
 .plan__image {
   position: absolute;
@@ -864,7 +869,7 @@ a {
 .legend {
   position: absolute;
   top: 0;
-  left: 730px;
+  left: calc(100% - 229px); /* 229px = legend width in Figma, pinned to the right edge */
   display: flex;
   align-items: center;
   gap: 4px;
@@ -893,7 +898,7 @@ a {
 /* Access point marker */
 .signal__line {
   position: absolute;
-  left: 841px;
+  left: 440px;
   top: 381px;
   width: 25px;
   height: 106px;
@@ -917,7 +922,7 @@ a {
 }
 .signal__end {
   position: absolute;
-  left: 863px;
+  left: 462px;
   top: 375px;
   width: 8px;
   height: 8px;
@@ -926,7 +931,7 @@ a {
 }
 .ap {
   position: absolute;
-  left: 794px;
+  left: 393px;
   top: 478px;
   display: flex;
   flex-direction: column;

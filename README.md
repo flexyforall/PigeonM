@@ -3,7 +3,7 @@
 Вёрстка лендинга «Business» по макету Figma
 [PigeonM / Concept 2](https://www.figma.com/design/THAEweWSAqB7TEOtSaxAgO/PigeonM?node-id=112-6940).
 
-Чистые HTML + CSS + немного JS, без сборки. Ширина макета — 1440 px.
+Чистые HTML + CSS + немного JS, без сборки. Макет — 1440 px; вёрстка тянется на всю ширину экрана (от 1280 px), на 1440 px совпадает с Figma.
 
 ## Запуск
 
@@ -24,6 +24,6 @@ assets/
   fonts/            Outfit и Inter (woff2, self-hosted)
   images/           растровые изображения (фон hero, иллюстрации, план этажа)
   icons/            SVG-иконки и логотип PigeonM
-  logos/            логотипы клиентов (+ маски из Figma)
+  logos/            логотипы клиентов
   decor/            декоративные линии, сетка, круги покрытия
 ```
